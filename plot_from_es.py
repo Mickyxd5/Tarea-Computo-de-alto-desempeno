@@ -5,22 +5,31 @@ import os
 
 # Conexión a Elastic Cloud
 es = Elasticsearch(
-    cloud_id="TU_CLOUD_ID",
-    basic_auth=("TU_USUARIO", "TU_PASSWORD")
+    cloud_id="TU_CLOUD_ID",  # Sustituye con tu Cloud ID
+    basic_auth=("TU_USUARIO", "TU_PASSWORD")  # Sustituye con tus credenciales
 )
 
-# Consulta simple
+# Consulta simple para obtener datos del índice
 resp = es.search(index="tudataset", body={"query": {"match_all": {}}}, size=1000)
-data = [hit["_source"] for hit in resp["hits"]["hits"]]
 
+# Extraer los datos de la respuesta y convertir en DataFrame
+data = [hit["_source"] for hit in resp["hits"]["hits"]]
 df = pd.DataFrame(data)
 
-# Ejemplo de gráfica
-plt.figure(figsize=(8,4))
-df["campo_x"].value_counts().plot(kind="bar")
-plt.title("Gráfico desde Elasticsearch")
+# Verifica las primeras filas del DataFrame para asegurarte de que las columnas sean correctas
+print(df.head())
 
-# Guardar en carpeta output
+# Suponiendo que 'home_goals' es una de las columnas en tu dataset
+# Ejemplo de gráfico de goles locales vs goles visitantes
+plt.figure(figsize=(10,6))
+df[['home_goals', 'away_goals']].plot(kind='bar', stacked=True)
+plt.title("Goles Locales vs Goles Visitantes")
+plt.xlabel("Partidos")
+plt.ylabel("Goles")
+plt.legend(["Goles Locales", "Goles Visitantes"])
+
+# Guardar la gráfica en la carpeta output
 os.makedirs("output", exist_ok=True)
-plt.savefig("output/grafica.png")
-print("✅ Gráfica guardada en output/grafica.png")
+plt.savefig("output/grafica_goles.png")
+plt.close()  # Cierra la figura para liberar memoria
+print("✅ Gráfica guardada en output/grafica_goles.png")

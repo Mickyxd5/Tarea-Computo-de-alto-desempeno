@@ -1,37 +1,31 @@
-name: Deploy Elasticsearch Graph to GitHub Pages
-
+name: Deploy Soccer Data to Pages
 on:
   push:
     branches:
       - main
 
-permissions:
-  contents: write
-
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - name: Check out repository
+        uses: actions/checkout@v3
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.10'
+          python-version: 3.10
 
       - name: Install dependencies
         run: |
-          pip install -r requirements.txt
-          pip install matplotlib elasticsearch pandas
+          pip install pandas matplotlib elasticsearch
 
-      - name: Run Python script
+      - name: Run Plot Script
         run: |
-          python plot_from_es.py
+          python plot_from_es.py  # Este script genera la gráfica
 
-      - name: Upload graph to GitHub Pages
+      - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./output
+          publish_dir: ./output  # Se publica desde la carpeta output

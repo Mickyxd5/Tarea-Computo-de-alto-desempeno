@@ -5,31 +5,35 @@ import os
 
 # Conexión a Elastic Cloud
 es = Elasticsearch(
-    cloud_id="TU_CLOUD_ID",  # Sustituye con tu Cloud ID
-    basic_auth=("TU_USUARIO", "TU_PASSWORD")  # Sustituye con tus credenciales
+    cloud_id="TU_CLOUD_ID",
+    basic_auth=("TU_USUARIO", "TU_PASSWORD")
 )
 
-# Consulta simple para obtener datos del índice
+# Consulta simple
 resp = es.search(index="tudataset", body={"query": {"match_all": {}}}, size=1000)
-
-# Extraer los datos de la respuesta y convertir en DataFrame
 data = [hit["_source"] for hit in resp["hits"]["hits"]]
+
+# Convertir datos a DataFrame
 df = pd.DataFrame(data)
 
-# Verifica las primeras filas del DataFrame para asegurarte de que las columnas sean correctas
-print(df.head())
+# Verifica si 'campo_x' está en el DataFrame
+if "campo_x" in df:
+    print("✅ 'campo_x' encontrado en el DataFrame.")
+    
+    # Verifica que 'campo_x' no esté vacío
+    if not df["campo_x"].isnull().all():
+        # Generar la gráfica
+        plt.figure(figsize=(8, 4))
+        df["campo_x"].value_counts().plot(kind="bar")
+        plt.title("Gráfico desde Elasticsearch")
 
-# Suponiendo que 'home_goals' es una de las columnas en tu dataset
-# Ejemplo de gráfico de goles locales vs goles visitantes
-plt.figure(figsize=(10,6))
-df[['home_goals', 'away_goals']].plot(kind='bar', stacked=True)
-plt.title("Goles Locales vs Goles Visitantes")
-plt.xlabel("Partidos")
-plt.ylabel("Goles")
-plt.legend(["Goles Locales", "Goles Visitantes"])
+        # Crear la carpeta output si no existe
+        os.makedirs("output", exist_ok=True)
 
-# Guardar la gráfica en la carpeta output
-os.makedirs("output", exist_ok=True)
-plt.savefig("output/grafica_goles.png")
-plt.close()  # Cierra la figura para liberar memoria
-print("✅ Gráfica guardada en output/grafica_goles.png")
+        # Guardar la gráfica en la carpeta output
+        plt.savefig("output/grafica.png")
+        print("✅ Gráfica guardada en output/grafica.png")
+    else:
+        print("⚠️ La columna 'campo_x' está vacía.")
+else:
+    print("⚠️ No se encontró 'campo_x' en el DataFrame.")

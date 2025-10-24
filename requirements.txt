@@ -1,0 +1,5 @@
+elasticsearch>=8.0.0
+pandas
+plotly
+python-dateutil
+requests

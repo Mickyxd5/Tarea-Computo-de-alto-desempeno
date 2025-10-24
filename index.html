@@ -1,139 +1,137 @@
-
-    <!DOCTYPE html>
-    <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Análisis de Partidos de Fútbol - Portafolio</title>
-        <style>
-            body {
-                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-                max-width: 1400px;
-                margin: 0 auto;
-                padding: 20px;
-                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                min-height: 100vh;
-            }
-            .container {
-                background: white;
-                border-radius: 15px;
-                padding: 30px;
-                box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            }
-            .header {
-                text-align: center;
-                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                color: white;
-                padding: 40px;
-                border-radius: 10px;
-                margin-bottom: 30px;
-            }
-            .stats-grid {
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-                gap: 15px;
-                margin: 20px 0;
-            }
-            .stat-card {
-                background: #f8f9fa;
-                padding: 20px;
-                border-radius: 10px;
-                text-align: center;
-                border-left: 4px solid #667eea;
-            }
-            .chart-container {
-                background: #f8f9fa;
-                padding: 25px;
-                margin: 25px 0;
-                border-radius: 10px;
-                border: 1px solid #e9ecef;
-            }
-            .chart-grid {
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
-                gap: 30px;
-            }
-            .chart-item {
-                text-align: center;
-                padding: 20px;
-                background: white;
-                border-radius: 10px;
-                box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-                transition: transform 0.3s ease;
-            }
-            .chart-item:hover {
-                transform: translateY(-5px);
-            }
-            .chart-item img {
-                max-width: 100%;
-                height: auto;
-                border-radius: 8px;
-                border: 1px solid #dee2e6;
-            }
-            .last-update {
-                text-align: center;
-                color: #6c757d;
-                font-style: italic;
-                margin-top: 40px;
-                padding: 20px;
-                background: #f8f9fa;
-                border-radius: 10px;
-            }
-            h3 {
-                color: #495057;
-                margin-bottom: 15px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <div class="header">
-                <h1>⚽ Análisis de Partidos de Fútbol</h1>
-                <p>Dashboard interactivo generado automáticamente con Python y GitHub Actions</p>
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <h3>📊 Gráficos</h3>
-                        <p style="font-size: 24px; margin: 0; color: #667eea;">4</p>
-                    </div>
-                    <div class="stat-card">
-                        <h3>🔄 Actualizado</h3>
-                        <p style="font-size: 16px; margin: 0; color: #28a745;">22/10/2025 13:45</p>
-                    </div>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📊 Dashboard de Fútbol - Portafolio</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #ff9966 0%, #ff5e62 100%);
+            min-height: 100vh;
+        }
+        .container {
+            background: #fff8f0;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+        .header {
+            text-align: center;
+            background: linear-gradient(135deg, #ff7e5f 0%, #feb47b 100%);
+            color: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .stat-card {
+            background: #fff3e0;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            border-left: 4px solid #ff7e5f;
+        }
+        .chart-container {
+            background: #fff3e0;
+            padding: 25px;
+            margin: 25px 0;
+            border-radius: 10px;
+            border: 1px solid #ffe0b2;
+        }
+        .chart-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
+            gap: 30px;
+        }
+        .chart-item {
+            text-align: center;
+            padding: 20px;
+            background: #fff8f0;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
+        }
+        .chart-item:hover {
+            transform: translateY(-5px);
+        }
+        .chart-item img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            border: 1px solid #ffd9b3;
+        }
+        .last-update {
+            text-align: center;
+            color: #6c757d;
+            font-style: italic;
+            margin-top: 40px;
+            padding: 20px;
+            background: #fff3e0;
+            border-radius: 10px;
+        }
+        h3 {
+            color: #e65c00;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>⚽ Dashboard de Partidos de Fútbol</h1>
+            <p>Visualiza las estadísticas clave de tus equipos favoritos en tiempo real</p>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>📊 Total de Gráficos</h3>
+                    <p style="font-size: 24px; margin: 0; color: #ff7e5f;">4</p>
                 </div>
-            </div>
-            
-            <div class="chart-container">
-                <h2>📈 Análisis Visual de los Partidos</h2>
-                <div class="chart-grid">
-    
-                    <div class="chart-item">
-                        <h3>Evolucion Goles</h3>
-                        <img src="evolucion_goles.png" alt="Evolucion Goles">
-                    </div>
-        
-                    <div class="chart-item">
-                        <h3>Victorias Temporada</h3>
-                        <img src="victorias_temporada.png" alt="Victorias Temporada">
-                    </div>
-        
-                    <div class="chart-item">
-                        <h3>Distribucion Goles</h3>
-                        <img src="distribucion_goles.png" alt="Distribucion Goles">
-                    </div>
-        
-                    <div class="chart-item">
-                        <h3>Top Equipos</h3>
-                        <img src="top_equipos.png" alt="Top Equipos">
-                    </div>
-        
+                <div class="stat-card">
+                    <h3>🔄 Última Actualización</h3>
+                    <p style="font-size: 16px; margin: 0; color: #ff9933;">22/10/2025 13:45</p>
                 </div>
-            </div>
-            
-            <div class="last-update">
-                <p>🚀 Generado automáticamente con GitHub Actions | ⚡ Análisis en tiempo real</p>
-                <p>📅 Última actualización: 2025-10-22 13:45:45</p>
             </div>
         </div>
-    </body>
-    </html>
+        
+        <div class="chart-container">
+            <h2>📈 Análisis Visual de Partidos</h2>
+            <div class="chart-grid">
+
+                <div class="chart-item">
+                    <h3>Evolución de Goles</h3>
+                    <img src="evolucion_goles.png" alt="Evolución de Goles">
+                </div>
     
+                <div class="chart-item">
+                    <h3>Victorias por Temporada</h3>
+                    <img src="victorias_temporada.png" alt="Victorias Temporada">
+                </div>
+    
+                <div class="chart-item">
+                    <h3>Distribución de Goles</h3>
+                    <img src="distribucion_goles.png" alt="Distribución de Goles">
+                </div>
+    
+                <div class="chart-item">
+                    <h3>Top Equipos</h3>
+                    <img src="top_equipos.png" alt="Top Equipos">
+                </div>
+    
+            </div>
+        </div>
+        
+        <div class="last-update">
+            <p>🚀 Generado automáticamente con GitHub Actions | ⚡ Análisis actualizado al momento</p>
+            <p>📅 Última actualización: 2025-10-22 13:45:45</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,51 +1,26 @@
-# plot_from_es.py
-import os
-import pandas as pd
+import matplotlib.pyplot as plt
 from elasticsearch import Elasticsearch
-import plotly.express as px
+import pandas as pd
+import os
 
-CLOUD_ID = os.getenv("ES_CLOUD_ID")
-ES_USER = os.getenv("ES_USER")
-ES_PASS = os.getenv("ES_PASS")
-INDEX = os.getenv("ES_INDEX", "dataset_index")
+# Conexión a Elastic Cloud
+es = Elasticsearch(
+    cloud_id="TU_CLOUD_ID",
+    basic_auth=("TU_USUARIO", "TU_PASSWORD")
+)
 
-OUT_DIR = "docs"
-OUT_FILE = os.path.join(OUT_DIR, "index.html")
+# Consulta simple
+resp = es.search(index="tudataset", body={"query": {"match_all": {}}}, size=1000)
+data = [hit["_source"] for hit in resp["hits"]["hits"]]
 
-def connect():
-    es = Elasticsearch(
-        cloud_id=CLOUD_ID,
-        basic_auth=(ES_USER, ES_PASS)
-    )
-    return es
+df = pd.DataFrame(data)
 
-def fetch_data(es, index):
-    print("Consultando documentos de Elasticsearch...")
-    resp = es.search(index=index, body={"query": {"match_all": {}}}, size=1000)
-    hits = [h["_source"] for h in resp["hits"]["hits"]]
-    df = pd.DataFrame(hits)
-    return df
+# Ejemplo de gráfica
+plt.figure(figsize=(8,4))
+df["campo_x"].value_counts().plot(kind="bar")
+plt.title("Gráfico desde Elasticsearch")
 
-def make_plot(df):
-    if "date" in df.columns and "value" in df.columns:
-        df["date"] = pd.to_datetime(df["date"], errors="coerce")
-        fig = px.line(df, x="date", y="value", color="category",
-                      title="Valores por fecha y categoría")
-    else:
-        fig = px.scatter(df, x=df.columns[0], y=df.columns[1],
-                         title="Gráfica simple")
-    return fig
-
-def save_html(fig):
-    os.makedirs(OUT_DIR, exist_ok=True)
-    fig.write_html(OUT_FILE)
-    print("Gráfica guardada en:", OUT_FILE)
-
-def main():
-    es = connect()
-    df = fetch_data(es, INDEX)
-    fig = make_plot(df)
-    save_html(fig)
-
-if __name__ == "__main__":
-    main()
+# Guardar en carpeta output
+os.makedirs("output", exist_ok=True)
+plt.savefig("output/grafica.png")
+print("✅ Gráfica guardada en output/grafica.png")
